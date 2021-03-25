@@ -92,6 +92,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected  void onDestroy(){
+        super.onDestroy();
+        // Once your finish using it, release multicast lock
+        if (multicastLock != null) {
+            multicastLock.release();
+            multicastLock = null;
+        }
+
+    }
+
     public static boolean hasPermissions(Context context, String...permissions){
         if (context != null && permissions != null){
             for (String permission: permissions){
